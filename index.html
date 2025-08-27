@@ -108,6 +108,40 @@
     </style>
 </head>
 <body>
+   <!-- Música de fondo -->
+<audio id="musica" loop>
+  <source src="audio/Shallow.mp3" type="audio/mp3">
+  Tu navegador no soporta audio en HTML5.
+</audio>
+
+<!-- Botón para iniciar la música -->
+<button id="playButton" style="
+  margin-top:20px;
+  padding:10px 20px;
+  border:none;
+  border-radius:10px;
+  background-color:#ff6b81;
+  color:#fff;
+  font-size:1.2rem;
+  cursor:pointer;
+  box-shadow:0 4px 10px rgba(0,0,0,0.2);
+">
+  💖
+</button>
+
+<script>
+  const musica = document.getElementById('musica');
+  const playButton = document.getElementById('playButton');
+
+  playButton.addEventListener('click', () => {
+    musica.play();
+    playButton.style.display = "none"; // oculto el botón una vez que arranca
+  });
+</script>
+
+
+
+</audio>
 
     <div class="message">
         ¡Feliz Aniversario, mi amor! 💖<br>
@@ -152,5 +186,3 @@
 
 </body>
 </html>
-
-
