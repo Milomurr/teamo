@@ -1,147 +1,106 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feliz Aniversario 💖</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1);
-            animation: gradientBG 10s ease infinite;
-            color: #fff;
-            text-align: center;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Feliz Aniversario 💖</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Arial', sans-serif;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffdde1);
+        animation: gradientBG 10s ease infinite;
+        color: #fff;
+        text-align: center;
+    }
 
-        @keyframes gradientBG {
-            0% {background-position: 0% 50%;}
-            50% {background-position: 100% 50%;}
-            100% {background-position: 0% 50%;}
-        }
+    @keyframes gradientBG {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
 
-        .message {
-            z-index: 10;
-            font-size: 2.5rem;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
-        }
+    .message {
+        z-index: 10;
+        font-size: 2.5rem;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        margin-bottom: 40px;
+    }
 
-        .heart {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff6b81;
-            transform: rotate(45deg);
-            animation: floatUp linear infinite;
-        }
-        .heart::before,
-        .heart::after {
-            content: "";
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            background-color: #ff6b81;
-            border-radius: 50%;
-        }
-        .heart::before { top: -10px; left: 0; }
-        .heart::after { left: 10px; top: 0; }
+    /* Contenedor de fotos */
+    .photos {
+        display: flex;
+        gap: 20px;
+        margin-top: 20px;
+    }
 
-        @keyframes floatUp {
-            0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
-        }
+    .photo-frame {
+        border: 4px solid #ff6b81;
+        border-radius: 15px;
+        padding: 5px;
+        background-color: rgba(255,255,255,0.8);
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
 
-        /* Contenedor de fotos */
-        .photos {
-            display: flex;
-            gap: 20px;
-            margin-top: 20px;
-        }
+    .photo-frame:hover {
+        transform: scale(1.05);
+    }
 
-        .photo-frame {
-            border: 4px solid #ff6b81;
-            border-radius: 15px;
-            padding: 5px;
-            background-color: rgba(255,255,255,0.8);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
+    .photo-frame img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+    }
 
-        .photo-frame:hover {
-            transform: scale(1.05);
-        }
+    /* Mensaje emergente */
+    .toast {
+        position: fixed;
+        bottom: 30px;
+        background: rgba(0,0,0,0.7);
+        color: #fff;
+        padding: 15px 25px;
+        border-radius: 30px;
+        font-size: 1.2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.5s ease;
+        z-index: 20;
+    }
 
-        .photo-frame img {
-            width: 200px;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 12px;
-        }
+    .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
 
-        /* Mensaje emergente */
-        .toast {
-            position: fixed;
-            bottom: 30px;
-            background: rgba(0,0,0,0.7);
-            color: #fff;
-            padding: 15px 25px;
-            border-radius: 30px;
-            font-size: 1.2rem;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.5s ease;
-        }
-
-        .toast.show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    /* Botón música */
+    #playButton {
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ff6b81;
+        color: #fff;
+        font-size: 1.2rem;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        z-index: 10;
+    }
+</style>
 </head>
 <body>
-   <!-- Música de fondo -->
-<audio id="musica" loop>
-  <source src="audio/Shallow.mp3" type="audio/mp3">
-  Tu navegador no soporta audio en HTML5.
-</audio>
 
-<!-- Botón para iniciar la música -->
-<button id="playButton" style="
-  margin-top:20px;
-  padding:10px 20px;
-  border:none;
-  border-radius:10px;
-  background-color:#ff6b81;
-  color:#fff;
-  font-size:1.2rem;
-  cursor:pointer;
-  box-shadow:0 4px 10px rgba(0,0,0,0.2);
-">
-  👉💖
-</button>
-
-<script>
-  const musica = document.getElementById('musica');
-  const playButton = document.getElementById('playButton');
-
-  playButton.addEventListener('click', () => {
-    musica.play();
-    playButton.style.display = "none"; // oculto el botón una vez que arranca
-  });
-</script>
-
-
-
-</audio>
+    <!-- Botón música arriba del mensaje -->
+    <button id="playButton">👉 💖 </button>
 
     <div class="message">
         ¡Feliz Aniversario, mi amor! 💖<br>
@@ -151,7 +110,7 @@
     <div class="photos">
         <!-- Cambia las URLs por tus fotos -->
         <div class="photo-frame" onclick="showToast()">
-            <img src="imagenes/javi.jpeg" alt="Foto 1">
+            <img src="audio/Shallow.mp3" alt="Foto 1">
         </div>
         <div class="photo-frame" onclick="showToast()">
             <img src="imagenes/edu.jpeg" alt="Foto 2">
@@ -161,29 +120,54 @@
     <!-- Mensaje emergente -->
     <div id="toast" class="toast">¡Por nuestro amor! 🥂</div>
 
+    <!-- Música -->
+    <audio id="musica" loop>
+        <source src="audio/tuCancion.mp3" type="audio/mp3">
+        Tu navegador no soporta audio en HTML5.
+    </audio>
+
     <script>
+        // Corazones flotantes con emoji
         function createHeart() {
             const heart = document.createElement('div');
-            heart.classList.add('heart');
+            heart.textContent = '❤️';
+            heart.style.position = 'absolute';
             heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.animationDuration = (3 + Math.random() * 3) + 's';
-            heart.style.width = heart.style.height = (10 + Math.random() * 20) + 'px';
+            heart.style.fontSize = (20 + Math.random() * 40) + 'px';
+            heart.style.opacity = 0.8;
+            heart.style.pointerEvents = 'none';
             document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 6000);
+
+            heart.animate(
+                [
+                    { transform: 'translateY(0)', opacity: 0.8 },
+                    { transform: 'translateY(-100vh)', opacity: 0 }
+                ],
+                {
+                    duration: 4000 + Math.random() * 3000,
+                    iterations: 1,
+                    easing: 'linear'
+                }
+            ).onfinish = () => heart.remove();
         }
 
         setInterval(createHeart, 300);
 
-        // Función para mostrar el mensajito romántico
+        // Botón música
+        const musica = document.getElementById('musica');
+        const playButton = document.getElementById('playButton');
+        playButton.addEventListener('click', () => {
+            musica.play();
+            playButton.style.display = "none";
+        });
+
+        // Mensaje emergente al clickear fotos
         function showToast() {
             const toast = document.getElementById("toast");
             toast.classList.add("show");
-            setTimeout(() => {
-                toast.classList.remove("show");
-            }, 2000);
+            setTimeout(() => { toast.classList.remove("show"); }, 2000);
         }
     </script>
 
 </body>
 </html>
-
